@@ -16,24 +16,26 @@
   <body>
     <div class="container" id="app">
       <!-- Logout button and notification for success / error event -->
-      <div class="row my-3">
-        <button id="btn-logout" class="btn btn-primary ml-auto">Logout</button>
-      </div>
-
-      <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
-        Your notification goes here
+      <div class="row my-3" id="logout" style="display: none;">
+        <button
+          id="btn-logout"
+          class="btn btn-primary ml-auto"
+          onclick="Navigation.logout()"
+        >
+          Logout
+        </button>
       </div>
 
       <!-- This is Login Form  -->
-      <div>
+      <div id="login" style="display: none;">
         <h1>Login</h1>
-        <form class="my-4">
+        <form class="my-4" onsubmit="Frontpage.login(event)">
           <div class="form-group">
             <label for="email">Email</label>
             <input
               type="email"
               class="form-control"
-              name="email"
+              name="email-login"
               id="email"
               required
             />
@@ -43,7 +45,7 @@
             <input
               type="password"
               class="form-control"
-              name="password"
+              name="password-login"
               id="password"
               required
             />
@@ -51,21 +53,26 @@
           <button type="submit" class="btn btn-primary">
             Submit
           </button>
-          <button type="submit" class="btn btn-info">
+          <button
+            type="button"
+            class="btn btn-info"
+            onclick="Navigation.toRegister()"
+          >
             Register
           </button>
         </form>
       </div>
 
-      <div>
+      <!-- register form -->
+      <div id="register" style="display: none;">
         <h1>Register</h1>
-        <form class="my-4">
+        <form class="my-4" onsubmit="Frontpage.register(event)">
           <div class="form-group">
             <label for="name">Name</label>
             <input
               type="name"
               class="form-control"
-              name="name"
+              name="name-register"
               id="name"
               required
             />
@@ -75,7 +82,7 @@
             <input
               type="email"
               class="form-control"
-              name="email"
+              name="email-register"
               id="email"
               required
             />
@@ -85,7 +92,7 @@
             <input
               type="password"
               class="form-control"
-              name="password"
+              name="password-register"
               id="password"
               required
             />
@@ -93,53 +100,99 @@
           <button type="submit" class="btn btn-primary">
             Submit
           </button>
-          <button type="submit" class="btn btn-warning">
+          <button
+            type="button"
+            class="btn btn-warning"
+            onclick="Frontpage.getRandomUser(event)"
+          >
             Random User
           </button>
-          <button type="submit" class="btn btn-info">
+          <button
+            type="button"
+            class="btn btn-info"
+            onclick="Navigation.toLogin()"
+          >
             Login
           </button>
         </form>
-      <ist -->
-      <div>
+      </div>
+
+      <div id="comics" style="display: none;">
         <h1>Comic Collection</h1>
-        <div class="row my-4">
+        <div class="row my-4" id="comic-list">
           <!-- Each of comic will have one of this card -->
-          <div class="col-4 mb-4">
+          <!-- <div class="col-4 mb-4">
             <div class="card text-center">
               <img
                 src="https://www.idwpublishing.com/wp-content/uploads/2018/10/aHR0cDovL3d3dy5uZXdzYXJhbWEuY29tL2ltYWdlcy9pLzAwMC8yNDAvNzQ0L29yaWdpbmFsL1NwaWRlcm1hbjAxX2N2ckEuanBn.jpeg"
-                class="card-img-top">
+                class="card-img-top"
+              />
               <div class="card-body">
                 <h5 class="card-title">The Amazing Spiderman - new Avengers</h5>
                 <p class="card-text">Author: J Michael S</p>
                 <button class="btn btn-primary">Edit</button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
-      <!-- This is form page to update a comic -->
-      <div>
-        <h1>Update Comic</h1>
-        <form class="my-4">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" type="text" class="form-control" name="title" />
-          </div>
-          <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" class="form-control" name="author" />
-          </div>
-          <div class="form-group">
-            <label for="imageUrl">Comic Image URL</label>
-            <input type="text" class="form-control" name="imageUrl" />
-          </div>
-          <button id="btn-update" type="submit" class="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </di>
+        <!-- This is form page to update a comic -->
+        <div id="update-comic" style="display: none;">
+          <h1>Update Comic</h1>
+          <form class="my-4" onsubmit="Comic.update(event)">
+            <div class="form-group">
+              <label for="title-update">Title</label>
+              <input
+                id="title-update"
+                type="text"
+                class="form-control"
+                name="title-update"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="author-update">Author</label>
+              <input
+                type="text"
+                class="form-control"
+                name="author-update"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="imageUrl-update">Comic Image URL</label>
+              <input
+                type="text"
+                class="form-control"
+                name="imageUrl-update"
+                required
+              />
+            </div>
+            <button id="btn-update" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+            <button
+              type="submit"
+              class="btn btn-danger"
+              onclick="Navigation.toComics(event)"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="alert"
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert"
+        style="display: none;"
+      ></div>
     </div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="src/main.js"></script>
+  <script src="src/frontpage.js"></script>
+  <script src="src/comic.js"></script>
+  <script src="src/navigation.js"></script>
 </html>
